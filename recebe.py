@@ -2,11 +2,11 @@ import paho.mqtt.client as mqtt
 import time
 #from wireless import wireless
 import os
-cod_inic_TORNO = "T0"
-cod_inic_FRESA = "F0"
-cod_inic_ESTEIRA = "E0"
-cod_inic_ASRS = "A0"
-TORNO_LIVRE = "T_P0"
+cod_inic_TORNO = "T0"   #torno nao necessita
+cod_inic_FRESA = "F0"   #torno nao necessita
+cod_inic_ESTEIRA = "E0" #torno nao necessita
+cod_inic_ASRS = "A0"    #torno nao necessita
+TORNO_LIVRE = "TM_T0"   #torno nao necessita
 FRESA_LIVRE = "F_F0"
 ESTEIRA_LIVRE = "E_E0"
 ASRS_LIVRE = "A_A0"
@@ -19,7 +19,8 @@ cod_ENVIA_PALET_EIXO = "P_E"
 cod_ENVIA_PALET_EIXO = "P_ENG"
 cod_RECEB_ID_CAR = "ID_CAR"
 cod_RECEB_ID_CONJ = "ID_CONJ"
-
+#criar vetor para contar numero de peças
+global pedidos
 def manipulamsg(message):
     #client1.subscribe(,2)
     #client.subscribe('ESTEIRA/#')
@@ -31,21 +32,27 @@ def manipulamsg(message):
         log_int = "Internal Log: "
         print("Log: Torno inicializando...")
         #time.sleep(2)
-    client.publish("#", TORNO_LIVRE)
+        #enviar peça1 (carcaça)
+        #enviar peça2 (eixo)
+        #enviar peça3(engrenagem)
+    client.publish("TORNO/#", TORNO_LIVRE)
     if message == FRESA_LIVRE:
         log_int = "Internal Log: "
         print("Log: Fresa inicializando...")
         #time.sleep(2)
+        #recebe peças
     client.publish("#", FRESA_LIVRE)
     if message == ESTEIRA_LIVRE:
         log_int = "Internal Log: "
         print("Log: Torno inicializando...")
         #time.sleep(2)
+        #recebe peças
     client.publish("#", TORNO_LIVRE)
     if message == TORNO_LIVRE:
         log_int = "Internal Log: "
         print("Log: Torno inicializando...")
         #time.sleep(2)
+        #recebe peças
     client.publish("#", TORNO_LIVRE)
   
 def on_connect(client,userdata,flags,rc):
@@ -81,3 +88,4 @@ client.loop_forever()
 # Seta um usuário e senha para o Broker, se não tem, não use esta linha
 #client.username_pw_set("USUARIO", password="SENHA")
 # Conecta no MQTT Broker, no meu caso, o Mosquitto
+
